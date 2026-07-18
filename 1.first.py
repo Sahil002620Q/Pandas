@@ -3,7 +3,7 @@ import pandas as pd
 data = ['Create','Read','Update','Read']
 
 series = pd.Series(data,index = ['C','R','U','D'])
-print(series)
+print(series) #panda series
 
 #change value
 series.loc['C'] = 'CREATE'

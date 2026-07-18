@@ -14,4 +14,4 @@ df['income'] = ['20k','15k']
 
 print(df)
 
-
+####use indexing to store date
