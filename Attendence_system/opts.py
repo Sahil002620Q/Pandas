@@ -9,7 +9,19 @@ def cls():
     import os
     os.system("clear")
 
+#------------------------------------------
+from datetime import datetime
+def dateTime_today():
+    dateTime = datetime.now()   # return yy/mm/dd hr:min:sec.milisec
+    return dateTime             # dateTime() = 00/00/00 00:00:00.000
+ 
+def date_today():
+    dt = dateTime_today()       # calling fun coz 
+    date = dt.strftime("%d/%m/%y")
+    print(date)                # date_today() = 00/00/00
 
+# dateTime_today()
+# date_today()
 #-------------------------------------------
 import pandas as pd
 
@@ -28,7 +40,7 @@ def att(sub):
         print("invailed subject : ",sub)
 #---
 def ctnue():
-    input("Enter to back to home : ")
+    input("Press Enter to continue : ")
 #--
 
 #-------------------------for incriment of attendence

@@ -1,44 +1,40 @@
 import pandas as pd
 from datetime import datetime
 import os 
-from opts import decorate,cls,ctnue
-from layout import display_menu
+from opts import decorate,cls,ctnue,dateTime_today,date_today
+from layout import display_menu,viewBySubject
+
 
 ##-----------------------------------
 
-data = {'math':0, 'dsa':0,'oops':0,'D.E.':0}
-series = pd.Series(data)
+data = {'math':{"present":0,"absent":0}, 'dsa':{"present":0,"absent":0},'oops':{"present":0,"absent":0},'D.E.':{"present":0,"absent":0}}
+print(data)
+# print(data["math"]["present"])  #only for testing
+# print(data["dsa"]["absent"])
+# print(data["oops"]["absent"])
+#---ignore for now deal with only dict 
+# series = pd.Series(data)
 
-print(series.to_string())
+# print(series.to_string())
 
-#========================================
+#========================================only for pd 
 
-def inc_sub_attendence(subject):
-    series.loc[subject] += 1
+# def inc_sub_attendence(subject):
+#     series.loc[subject] += 1
 
-def att(sub):  #take inc_sunb_attenecence and check if that subject wxit else thorew error
-    try:
-        inc_sub_attendence(sub)
-    except KeyError:
-        print("invailed subject : ",sub)
+# def att(sub):  #take inc_sunb_attenecence and check if that subject wxit else thorew error
+#     try:
+#         inc_sub_attendence(sub)
+#     except KeyError:
+#         print("invailed subject : ",sub)
 
 #+====================================
 
 #---------only attendence----------
 
-def dateTime_today():
-    dateTime = datetime.now()   # return yy/mm/dd hr:min:sec.milisec
-    return dateTime             # dateTime() = 00/00/00 00:00:00.000
- 
-def date_today():
-    dt = dateTime_today()       # calling fun coz 
-    date = dt.strftime("%d/%m/%y")
-    print(date)                # date_today() = 00/00/00
 
-# dateTime_today()
-# date_today()
 
-def choice():
+def choice(): #subfunc
     try:
         x = int(input())
         # print("working")y
@@ -47,53 +43,72 @@ def choice():
         print("",end='')
 #ask ho much lecture today
 
-
-
 #menu
     
+#================def for options/choice==============================================
 
 
-#================def for options/choice
-@decorate  #1st 
+
+#-------------
+@decorate  #1st #===========]]]]]]]]]]]]===fix me ==[[[[[[[[[[[[[[]]]]]]]]]]]]]]
 def today_att():
-    print("todays attendence")
-    sub_to_add = int(input("enter total classes you attend today : "))
+    #logic to rmark as absent or present 
+
+    #below only add the attendence by one or add absence by one 
+    print("Add today's attendence")
+    print("Date : ",end='') 
+    date_today()
+
+    sub_to_add = int(input("enter total no. of classes today : "))# take input x time
     if sub_to_add > 8 :
-            print("Wrong input ")
-    # run loop sub to add time
-    #  assume  5
+            print("limit exceed : there are only 8 subjects")
+    
+    #  assume  1 and dry run 
 
     #empty list
-    subx = {}
+    # subx = {} #not usefull coz now i will update main dict
     for i in range(sub_to_add):
         sub = input("Enter subject : ") 
-        attn = input("Mark present/absent : ") #pend logic
-        
+        attn = str(input("Mark present/absent : ")) #pend logic
 
-        if attn == 'p' or 'P' or 1 or 'Present' or 'y' or "YES" or 'yes' or 'Yes' or  'Y' : #ignorable
-            attn = True
-        elif attn == 'a' or 'A' or 0 or 'Absent' or "n" or 'NO' or 'N' or "no" or 'No' :
-            attn = False
-
-        subx[sub] = attn
+        list = ['p','P',1,]
+        #'p' or 'P' or '1' or 'Present' or 'y' or "YES" or 'yes' or 'Yes' or  'Y'
+        if attn == 1 or attn == '1' or attn == 'P' or attn == 'p' or attn == 'y'or attn == 'Y' or attn == 'Yes' or attn == 'YES' or attn == 'Present' : 
+            # attn = True
+            data[sub]["present"] += 1
+        elif attn == 'a' or attn == 'A' or attn == '0' or attn == 'Absent' or attn == "n" or attn == 0 or attn == 'No'or attn == 'NO'or attn == 'no' :   #dont mix string and number or bool for comparison is 1 and '1' is problem
+            # attn = False
+            data[sub]["absent"] += 1
+#chenge=\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        # subx[sub] = attn
 
         # for i in range(sub_to_add):
-        att(sub)
+        # att(sub)  what it do ??
 
-    print(subx)
-    print("Marked present for",sub,"in data")
+        # print(subx) #shift tab
+        print("sr subject present absent")
+        print("1. math   ",data["math"]["present"],'     ',data["math"]["absent"])
+        print("2. dsa    ",data["dsa"]["present"],'     ',data["dsa"]["absent"])
+        print("3. oops   ",data["oops"]["present"],'     ',data["oops"]["absent"])
+        print("4. D.E.   ",data["D.E."]["present"],'     ',data["D.E."]["absent"])
+        # print(data)
+        print("Marked present for",sub,"in data")
     
     
 @decorate   #5th
 def view_att():
-    print(series.to_string())  # to_string will hide dtype and only display data but no data type
+    # print(series.to_string())  # to_string will hide dtype and only display data but no data type
+    print("sr subject present absent")
+    print("1. math   ",data["math"]["present"],'     ',data["math"]["absent"])
+    print("2. dsa    ",data["dsa"]["present"],'     ',data["dsa"]["absent"])
+    print("3. oops   ",data["oops"]["present"],'     ',data["oops"]["absent"])
+    print("4. D.E.   ",data["D.E."]["present"],'     ',data["D.E."]["absent"])
 
-    
 #===================================
 def compare_choice(choiceval):
 
     if choiceval == 1:  
-        cls() 
+        # cls() 
         today_att()
         ctnue()
         
@@ -114,9 +129,10 @@ def compare_choice(choiceval):
 
     elif choiceval == 5:
         cls()
+        print("================================")
+        print("Total attendence ")
         view_att()
-        print("total attendence :")
-        print()
+        
         ctnue()
 
     elif choiceval == 6:
@@ -154,3 +170,4 @@ while True:
     compare_choice(choiceval)
 
 # today_att()
+#PENDING 3,4

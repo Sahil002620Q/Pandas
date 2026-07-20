@@ -19,3 +19,16 @@ def display_menu():
     print("================================")
     print("Choice : ",end='')
 
+def viewBySubject():
+    print("""================================
+   View Attendance by Subject
+================================\n
+1. Math
+2. DSA
+3. OOPS
+4. D.E.
+
+Select Subject : _""")
+    
+if __name__ == "__main__":
+    viewBySubject()
