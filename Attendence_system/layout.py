@@ -1,4 +1,5 @@
 import os
+
 def display_menu():
     os.system("cls")
     print("================================")
@@ -19,6 +20,8 @@ def display_menu():
     print("================================")
     print("Choice : ",end='')
 
+
+
 def viewBySubject():
     print("""================================
    View Attendance by Subject
@@ -28,7 +31,20 @@ def viewBySubject():
 3. OOPS
 4. D.E.
 
-Select Subject : _""")
+Select Subject : """,end='')
+    
+def AttendancePercentage(Math_percentage,dsa_percentage,oops_percentage,DE_percentage,overall_percentage):
+    print(f"""--------------------------------
+ Overall Attendance Percentage
+--------------------------------
+
+Math      : {Math_percentage} %
+DSA       : {dsa_percentage} %
+OOPS      : {oops_percentage} %
+D.E.      : {DE_percentage} %
+
+Overall   : {overall_percentage} %
+""")
     
 if __name__ == "__main__":
-    viewBySubject()
+    AttendancePercentage(20,30,40,20)
