@@ -7,8 +7,18 @@ from layout import display_menu,viewBySubject,AttendancePercentage
 
 data = {'math':{"present":0,"absent":0}, 'dsa':{"present":0,"absent":0},'oops':{"present":0,"absent":0},'D.E.':{"present":0,"absent":0}}
 print(data)
+# shorthands use it only to get values and use it where you want to know current vals
+#these only stores current vals but modifying this only modify these internal local vars 
+mp,ma = data['math']['present'] , data['math']['absent']
+dp,da = data['dsa']['present'] , data['dsa']['absent']
+op,oa = data['oops']['present'] , data['oops']['absent']
+Dp,Da = data['D.E.']['present'] , data['D.E.']['absent']
 
-
+def reset(x,y): #formula for reset from real to 0 
+    temp = x 
+    x = y
+    y = temp
+    return x,y
 
 def choice(): #subfunc just take a choice and store it in variable , if want to call later again the remove int from here and then where you wanna call , there use it as variable and convert there into int 
     try:
@@ -57,9 +67,9 @@ def view_att():
     Dp1,Da1 = data['D.E.']['present'] , data['D.E.']['absent']
 
     print("sr subject present absent")
+    print(f"1. math    {mp1:<5}   {ma1}") # :7 reserve space by 7 
     print(f"2. dsa     {dp1:<5}   {da1}")
     print(f"3. oops    {op1:<5}   {oa1}")
-    print(f"1. math    {mp1:<5}   {ma1}") # :7 reserve space by 7 
     print(f"4. D.E.    {Dp1:<5}   {Da1}") # :<5 reserve right space by 5 < for right > for left
 
 #------------logic for percentage --------------------
@@ -111,7 +121,17 @@ def percentage():
     
     return math_percentage,dsa_percentage,oops_percentage,DE_percentage,overall_percentage
 #------------End of logic for percentage----------------------
+#for 9th option
+def reset_to0():
 
+    data['math']['present'],catche = reset(data['math']['present'],0)            # # print(mp,ma) shorthands will not work even if declared here as we want to modify data and it is only for read operation in local # before reset (will not work as it will change internal vals , if in c it would be archieved via pointer)
+    data['math']['absent'],catche = reset(data['math']['absent'],0)
+    data['dsa']['present'],catche = reset(data['dsa']['present'],0)
+    data['dsa']['absent'],catche = reset(data['dsa']['absent'],0)
+    data['oops']['present'],catche = reset(data['oops']['present'],0)
+    data['oops']['absent'],catche = reset(data['oops']['absent'],0)
+    data['D.E.']['present'],catche = reset(data['D.E.']['present'],0)
+    data['D.E.']['absent'],catche = reset(data['D.E.']['absent'],0)
 
 def compare_choice(choiceval):
 
@@ -162,8 +182,19 @@ def compare_choice(choiceval):
 
     elif choiceval == 9:
         cls()
-        print()
-        ctnue()
+        confirmation = input("Are you sure to delete current record (y/n) : ").lower()
+
+        if confirmation == 'y':
+            try:
+                reset_to0()
+                print("Reset status : done")
+                ctnue()
+            except:
+                print("Reset status : pending  \nError due to wrong input please try again later")
+                ctnue()
+        else :
+            print("Reset status : pending  \nInput Key out of scope")
+            ctnue()
 
     elif choiceval == 10:
         # cls()
